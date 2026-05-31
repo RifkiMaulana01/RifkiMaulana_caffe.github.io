@@ -420,52 +420,154 @@ body {
 }
 
 /* ==========================================================================
-   GALLERY SECTION
+   PERBAIKAN TOTAL AKHIR: GALERI CAFE (KUNCI BARIS LAPTOP & HP)
    ========================================================================== */
 .gallery-section {
     padding: 60px 8%;
     background-color: var(--creamy-bg);
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Mengunci agar tidak ada elemen meluber keluar */
+    clear: both;      /* Memutus efek tabrakan antar bagian atas dan bawah */
 }
 
-.section-title {
+.gallery-section .section-title {
     font-size: 36px;
     color: var(--primary-color);
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
+/* --- TAMPILAN UTAMA LAPTOP FULL SCREEN (DIKUNCI 4 KOLOM SEJAJAR) --- */
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr) !important; /* MEMAKSA PAS 4 KOLOM DI LAPTOP, TIDAK BOLEH TURUN */
     gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.gallery-item {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
 .gallery-item img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 12px;
-    transition: 0.4s ease;
+    height: 240px; /* Mengunci tinggi foto di laptop agar tidak terlalu tinggi/raksasa */
+    object-fit: cover; /* Memotong gambar otomatis di tengah agar tidak gepeng */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(92, 64, 51, 0.06);
+    transition: transform 0.4s ease;
 }
 
 .gallery-item img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 25px rgba(92, 64, 51, 0.2);
+    transform: scale(1.04);
 }
+
 /* ==========================================================================
-   MENU CARDS SECTION (GRID DI LAPTOP & SLIDER 1 BARIS DI HP)
+   PENGATURAN OTOMATIS SAAT DI KECILKAN / LAYAR HP
+   ========================================================================== */
+@media (max-width: 768px) {
+    .gallery-section {
+        padding: 40px 4% !important;
+    }
+    
+    .gallery-section .section-title {
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* Tetap 4 kolom di HP, tapi jaraknya dipersempit */
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .gallery-item img {
+        height: 80px !important; /* Mengubah jadi kotak persegi kecil di HP */
+        border-radius: 8px !important;
+    }
+}
+
+/* ==========================================================================
+   PERBAIKAN STRUKTUR MENU DI BAWAHNYA (BIAR TIDAK TABRAKAN LAGI)
    ========================================================================== */
 .menu-section {
+    clear: both !important; /* WAJIB: Memaksa area menu turun total di bawah galeri */
     padding: 80px 8%;
     background-color: var(--bg-white);
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: block !important;
 }
 
+@media (max-width: 768px) {
+    .menu-section {
+        padding: 50px 4% !important;
+    }
+}
+
+/* ==========================================================================
+   PERBAIKAN TOTAL: STRUKTUR MENU (ANTI BERTUMPUK / NORMAL DI LAPTOP & HP)
+   ========================================================================== */
+
+/* Kelas Pembatas Baru dari HTML */
+.clearfix-pembatas {
+    clear: both !important;
+    display: block !important;
+    width: 100%;
+    height: 1px;
+}
+
+.menu-section {
+    clear: both !important;        /* Memutus paksa semua tumpukan dari atas */
+    display: block !important;       /* Memastikan elemen berdiri sebagai blok mandiri */
+    position: relative !important;   /* Menghapus efek mengambang jika ada */
+    padding: 80px 8% !important;
+    background-color: var(--bg-white);
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mengatur Ulang Judul Utama Menu agar Berada di Posisi Normal */
+.menu-section .section-title {
+    font-size: 36px !important;
+    color: var(--primary-color) !important;
+    margin-bottom: 10px !important; /* Jarak aman ke sub-judul di bawahnya */
+    margin-top: 0 !important;
+    position: relative !important;
+    display: block !important;
+    line-height: 1.2 !important;
+}
+
+/* Mengatur Ulang Sub-Judul Menu agar Turun ke Bawah Judul Utama */
 .section-subtitle {
-    color: var(--text-light);
-    margin-top: -30px;
-    margin-bottom: 50px;
-    font-size: 15px;
+    font-size: 15px !important;
+    color: var(--text-light) !important;
+    margin-top: 0 !important;
+    margin-bottom: 50px !important; /* Jarak aman ke kotak-kotak card kopi di bawahnya */
+    display: block !important;
+    position: relative !important;
+    line-height: 1.5 !important;
+}
+
+/* Kebutuhan Khusus Penyesuaian Saat Layar Dikecilkan/HP */
+@media (max-width: 768px) {
+    .menu-section {
+        padding: 50px 4% !important;
+    }
+    .menu-section .section-title {
+        font-size: 24px !important;
+        margin-bottom: 8px !important;
+    }
+    .section-subtitle {
+        font-size: 13px !important;
+        margin-bottom: 30px !important;
+    }
 }
 
 /* Wadah Utama Slider */
