@@ -453,7 +453,7 @@ body {
     box-shadow: 0 10px 25px rgba(92, 64, 51, 0.2);
 }
 /* ==========================================================================
-   MENU CARDS SECTION
+   MENU CARDS SECTION (GRID DI LAPTOP & SLIDER 1 BARIS DI HP)
    ========================================================================== */
 .menu-section {
     padding: 80px 8%;
@@ -465,21 +465,31 @@ body {
     color: var(--text-light);
     margin-top: -30px;
     margin-bottom: 50px;
+    font-size: 15px;
 }
 
+/* Wadah Utama Slider */
+.menu-slider-container {
+    width: 100%;
+    padding: 15px 5px;
+}
+
+/* --- TAMPILAN LAPTOP (TETAP SEPERTI AWAL: GRID BALOK) --- */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
 }
 
+/* Desain Dasar Kartu Menu */
 .menu-card {
     background: var(--bg-white);
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(92, 64, 51, 0.05);
     overflow: hidden;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid #F5EBE6;
+    display: flex;
+    flex-direction: column;
 }
 
 .menu-card:hover {
@@ -537,23 +547,75 @@ body {
 
 .btn-order {
     background-color: var(--primary-color);
-    color: white;
     border: none;
-    width: 42px;         /* Diperbesar sedikit agar ikon terlihat proporsional */
-    height: 42px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    display: flex;       /* Membuat ikon tepat berada di tengah lingkaran */
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;     /* Ukuran proporsional untuk ikon keranjang */
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(92, 64, 51, 0.2);
 }
 
-.btn-order:hover {
-    background-color: var(--accent-color);
-    transform: scale(1.1); /* Efek membesar sedikit saat kursor mendekat */
+
+/* ==========================================================================
+   --- OTOMATIS BERUBAH JADI 1 BARIS SLIDER SAAT DI LAYAR HP ---
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Membuka akses geser usapan jari di layar HP */
+    .menu-slider-container {
+        overflow-x: auto; 
+        scroll-snap-type: x mandatory; /* Efek magnet ngerem otomatis pas di tengah card */
+        -webkit-overflow-scrolling: touch; /* Membuat geseran di HP sangat licin */
+    }
+
+    /* Menyembunyikan garis scrollbar bawaan HP biar kelihatan clean rapi */
+    .menu-slider-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Memaksa grid laptop berubah menjadi 1 BARIS LURUS KE KANAN */
+    .menu-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 16px; /* Jarak antar kartu di HP */
+    }
+
+    /* Mengatur ukuran kartu di HP biar pas menampilkan 2 card (Tidak sempit/berantakan) */
+    .menu-card {
+        flex: 0 0 calc(50% - 8px); 
+        min-width: 165px; /* Batas aman terkecil agar teks harga & tombol tidak tabrakan */
+        scroll-snap-align: start;
+    }
+    
+    .menu-img-container {
+        height: 140px; /* Foto mengecil proporsional menyesuaikan HP */
+    }
+
+    .menu-info {
+        padding: 12px;
+    }
+
+    .menu-info h3 {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Judul menu yang kepanjangan otomatis dipotong pakai titik-titik (...) */
+    }
+
+    /* Menyembunyikan paragraf deskripsi di HP agar tinggi kartu seragam & rapi */
+    .menu-info p {
+        display: none; 
+    }
+    
+    .price {
+        font-size: 14px;
+    }
+
+    .btn-order {
+        width: 32px;
+        height: 32px;
+    }
 }
 
 /* ==========================================================================
